@@ -20,10 +20,41 @@
 </head>
 <body>
 
+
 <h1>Empleado</h1>
-<p>Nombre: <c:out value="${empleado.nombre}"></c:out> </p>
-<p>Edad: <c:out value="${empleado.edad}"></c:out> </p>
-<p>Sueldo: <c:out value="${empleado.sueldo}"></c:out> </p>
+
+<p>Nombre: 
+	<c:out value="${empleado.nombre}"></c:out> 
+</p>
+
+<p>Edad: 
+	<c:out value="${empleado.edad}"></c:out> 
+</p>
+
+<p>Sueldo: 
+	<c:out value="${empleado.sueldo}"></c:out> 
+</p>
+
+<c:if test="${empleado.fechaVueltaVacaciones != null}">
+	<p>La persona se encuentra de vacaciones hasta el día: 
+		<c:out value="${empleado.fechaVueltaVacaciones}" 
+		default="No se encuentra de vacaciones."></c:out>
+	</p>
+</c:if>
+
+<h4>Modificar Vacaciones</h4>
+
+<form action="empleados" method="post">
+	<input name="accion" value="vacaciones" type="hidden">
+	<input name="id" value="${empleado.id}" type="hidden">
+	<p>
+		<input name="dia" size="1" value="1">/ <input name="mes" size="1" value="01">/ <input name="anio" size="3" value="2024">
+		<input type="submit" value="Guardar">
+	</p>
+</form>
+
+
+<h1>Eliminar:</h1>
 
 <form action="empleados" method="post">
 	<input type="hidden" name="id" value="${empleado.id}">	

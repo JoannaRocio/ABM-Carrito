@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -107,9 +108,37 @@ public class EmpleadosController extends HttpServlet {
 		case "insert" -> postInsert(request, response);
 		case "update" -> postUpdate(request, response);
 		case "delete" -> postDelete(request, response);
+		case "vacaciones" -> postVacaciones(request, response);
 		default ->
 			response.sendError(404, "No existe la acción " + accion);
 		}
+	}
+
+
+	private void postVacaciones(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		String sDia = request.getParameter("dia");
+		int dia = Integer.parseInt(sDia);
+		
+		String sMes = request.getParameter("mes");
+		int mes = Integer.parseInt(sMes);
+		
+		String sAnio = request.getParameter("anio");
+		int anio = Integer.parseInt(sAnio);
+		
+		String sId = request.getParameter("id");
+		int id = Integer.parseInt(sId);
+		
+		Empleado emple = empleadosRepo.findById(id);
+		
+		LocalDate fecha = LocalDate.of(anio, mes, dia);
+		
+		emple.setFechaVueltaVacaciones(fecha);
+		
+		empleadosRepo.update(emple);
+		
+		response.sendRedirect("empleados?accion=show&id="+id);
+		
 	}
 
 

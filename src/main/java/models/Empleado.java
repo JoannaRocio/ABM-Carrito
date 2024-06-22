@@ -1,10 +1,13 @@
 package models;
 
+import java.time.LocalDate;
+
 public class Empleado {
 	private int id;
 	private String nombre;
 	private int edad;
 	private double sueldo;
+	private LocalDate fechaVueltaVacaciones;
 	
 
 	public Empleado() {
@@ -58,7 +61,17 @@ public class Empleado {
 	public void setSueldo(double sueldo) {
 		this.sueldo = sueldo;
 	}
-	
+
+
+	public LocalDate getFechaVueltaVacaciones() {
+		return fechaVueltaVacaciones;
+	}
+
+
+	public void setFechaVueltaVacaciones(LocalDate fechaVueltaVacaciones) {
+		this.fechaVueltaVacaciones = fechaVueltaVacaciones;
+	}
+
 	
 
 }

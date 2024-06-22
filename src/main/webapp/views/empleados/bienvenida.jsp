@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bienvenido/a</title>
+<title>Carrito</title>
 </head>
 <body>
+
+<h1>Bienvenido al carrito</h1>
 
 
 </body>
