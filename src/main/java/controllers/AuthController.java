@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import decorators.SessionDecorator;
 import models.Empleado;
 import repositories.EmpleadosRepoSingleton;
 import repositories.interfaces.EmpleadoRepo;
@@ -44,7 +45,9 @@ public class AuthController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
-		session.setAttribute("empleado", emple);
+		SessionDecorator sessionDe = new SessionDecorator(session);
+		
+		sessionDe.setEmpleadoLogueado(emple);
 		
 		response.sendRedirect("empleados");
 	}

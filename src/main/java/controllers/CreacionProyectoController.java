@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import decorators.SessionDecorator;
+import exceptions.EmpleadoDeslogueadoException;
 import models.Empleado;
 import repositories.EmpleadosRepoSingleton;
 import repositories.interfaces.EmpleadoRepo;
@@ -29,28 +31,23 @@ public class CreacionProyectoController extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		
-		Empleado empleadoLogNullable = (Empleado) session.getAttribute("empleado");
+		SessionDecorator sessionDec = new SessionDecorator(session);
 		
-		Empleado empleadoLog = Optional.ofNullable(empleadoLogNullable)
-				.orElseThrow(() -> new IOException("No hay usuario"));
+		try {
+			Empleado empleadoActualizado = sessionDec.getEmpleadoLogueadoActu(empleadosRepo);
+			
+			CarritoBuilder carrito = sessionDec.getCarrito();
+			
+			carrito.setLider(empleadoActualizado);
+			
+			request.setAttribute("carrito", carrito);
+			
+			request.getRequestDispatcher("/views/creacion-proyecto/index.jsp").forward(request, response);
 		
-		Empleado empleadoActualizado = empleadosRepo.findById(empleadoLog.getId());
-		
-		session.setAttribute("empleado", empleadoActualizado);
-		
-		CarritoBuilder carrito = (CarritoBuilder) session.getAttribute("carrito");
-		
-		carrito = Optional.ofNullable(carrito).orElseGet( ()-> {
-			CarritoBuilder pro = new CarritoBuilder(empleadoLog);
-			session.setAttribute("carrito", pro);
-			return pro;
-		});
-		
-		carrito.setLider(empleadoActualizado);
-		
-		request.setAttribute("carrito", carrito);
-		
-		request.getRequestDispatcher("/views/creacion-proyecto/index.jsp").forward(request, response);
+		} catch (EmpleadoDeslogueadoException e) {
+			response.sendRedirect("auth");
+			return;
+		}
 	}
 
 
@@ -58,29 +55,27 @@ public class CreacionProyectoController extends HttpServlet {
 		
 		String accion = request.getParameter("accion");
 		
-		switch (accion) {
-		case "modifpre" -> doModificarPresupuesto(request, response);
-		default -> response.sendError(400);
+		try {
+			switch (accion) {
+			case "modifpre" -> doModificarPresupuesto(request, response);
+			default -> response.sendError(404);
+			}
+		}
+		catch(EmpleadoDeslogueadoException e) {
+			response.sendRedirect("auth");
 		}
 	}
 
-	private void doModificarPresupuesto(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	private void doModificarPresupuesto(HttpServletRequest request, HttpServletResponse response) throws IOException, EmpleadoDeslogueadoException {
+		
 		HttpSession session = request.getSession();
 		
-		CarritoBuilder carrito = (CarritoBuilder) session.getAttribute("carrito");
+		SessionDecorator sessionDec = new SessionDecorator(session);
 		
-		Empleado empleadoLogNullable = (Empleado) session.getAttribute("empleado");
-		
-		Empleado empleadoLog = Optional.ofNullable(empleadoLogNullable)
-				.orElseThrow(() -> new IOException("No hay usuario"));
-		
-		carrito = Optional.ofNullable(carrito).orElseGet( ()-> {
-			CarritoBuilder pro = new CarritoBuilder(empleadoLog);
-			session.setAttribute("carrito", pro);
-			return pro;
-		});
+		CarritoBuilder carrito = sessionDec.getCarrito();
 		
 		String sImporte = request.getParameter("importe");
+		
 		double importe = Double.parseDouble(sImporte);
 		
 		carrito.setPresupuesto(importe);

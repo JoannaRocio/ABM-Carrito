@@ -3,6 +3,18 @@ package utils;
 import models.Empleado;
 
 public class CarritoBuilder {
+	
+	public class tupla {
+		private Empleado emple;
+		private String tarea;
+	}
+	
+
+	public CarritoBuilder(Empleado lider, double presupuesto) {
+		super();
+		this.lider = lider;
+		this.presupuesto = presupuesto;
+	}
 
 	private Empleado lider;
 	

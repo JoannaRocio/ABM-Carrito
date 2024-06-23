@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import decorators.SessionDecorator;
+import exceptions.EmpleadoDeslogueadoException;
 import models.Empleado;
 import repositories.EmpleadosRepoSingleton;
 import repositories.interfaces.EmpleadoRepo;
@@ -31,17 +33,26 @@ public class EmpleadosController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String accion = request.getParameter("accion");
-		accion = Optional.ofNullable(accion).orElse("index");
 		
-		switch (accion) {
-		case "index" -> getIndex(request, response);
-		case "bienvenida" -> getBienvenida(request, response);
-		case "show" -> getShow(request, response);
-		case "edit" -> getEdit(request, response);
-		case "create" -> getCreate(request, response);
-		default ->
-			response.sendError(404);
+		SessionDecorator sDec = new SessionDecorator(request.getSession());
+		try {
+			sDec.getEmpleadoLogueado();
+
+			String accion = request.getParameter("accion");
+			accion = Optional.ofNullable(accion).orElse("index");
+			
+			switch (accion) {
+				case "index" -> getIndex(request, response);
+				case "bienvenida" -> getBienvenida(request, response);
+				case "show" -> getShow(request, response);
+				case "edit" -> getEdit(request, response);
+				case "create" -> getCreate(request, response);
+			default ->
+				response.sendError(404);
+			}
+		} catch (EmpleadoDeslogueadoException e) {
+			response.sendRedirect("auth");
+			return;
 		}
 	}
 
