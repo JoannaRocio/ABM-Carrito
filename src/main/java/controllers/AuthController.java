@@ -38,18 +38,42 @@ public class AuthController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String sId = request.getParameter("empleado_id");
-		int id = Integer.parseInt(sId);
+		String username = request.getParameter("username");
+		String pass = request.getParameter("pass");
+
+		Empleado _username = empleadosRepo.findByUsername(username, pass);
 		
-		Empleado emple = empleadosRepo.findById(id);
+		//Empleado _pass = empleadosRepo.findByPassword(pass);
+
+		if(_username != null) {
+
+			HttpSession session = request.getSession();
+			
+			SessionDecorator sessionDe = new SessionDecorator(session);
+			
+			sessionDe.setEmpleadoLogueado(_username);
+			
+			response.sendRedirect("empleados");
+		}
 		
-		HttpSession session = request.getSession();
+		else {
+			response.sendRedirect("auth");
+		}
 		
-		SessionDecorator sessionDe = new SessionDecorator(session);
 		
-		sessionDe.setEmpleadoLogueado(emple);
 		
-		response.sendRedirect("empleados");
+//		String sId = request.getParameter("empleado_id");
+//		int id = Integer.parseInt(sId);
+//		
+//		Empleado emple = empleadosRepo.findById(id);
+//		
+//		HttpSession session = request.getSession();
+//		
+//		SessionDecorator sessionDe = new SessionDecorator(session);
+//		
+//		sessionDe.setEmpleadoLogueado(emple);
+//		
+//		response.sendRedirect("empleados");
 	}
 
 }

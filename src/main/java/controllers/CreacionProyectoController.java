@@ -45,7 +45,7 @@ public class CreacionProyectoController extends HttpServlet {
 			request.getRequestDispatcher("/views/creacion-proyecto/index.jsp").forward(request, response);
 		
 		} catch (EmpleadoDeslogueadoException e) {
-			response.sendRedirect("auth");
+			response.sendRedirect("auth"); 
 			return;
 		}
 	}

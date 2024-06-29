@@ -7,22 +7,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
 <title>Insert title here</title>
 </head>
 <body>
-
-
-<form action="auth" method="post">
-	<p>
-		Empleado: 
-		<select name="empleado_id">
-				<c:forEach var="empleado" items="${empleados}">
-					<option value="${empleado.id}">${empleado.nombre}</option>
-				</c:forEach>
-		</select>
-	</p>
-	 <input type="submit" value="identificarse"/>
-</form>
-
+	<div class="container">
+		<form action="auth" method="post">
+			<p>
+				<label>Usuario:</label>
+				<input type="text" name="username" placeholder="Ingrese su usuario"/>
+		<%-- 		<select name="empleado_id">
+						<c:forEach var="empleado" items="${empleados}">
+							<option value="${empleado.id}">${empleado.nombre}</option>
+						</c:forEach>
+				</select> --%>
+			</p>
+			<p>
+				<label>Contraseña: </label>
+				<input type="password" name="pass" placeholder="Ingrese su contraseña"/>
+			</p>
+			 <input type="submit" value="Ingresar"/>
+		</form>
+	</div>
 </body>
 </html>

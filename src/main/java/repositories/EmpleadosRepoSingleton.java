@@ -21,9 +21,9 @@ public class EmpleadosRepoSingleton implements EmpleadoRepo {
 	
 	private EmpleadosRepoSingleton() {
 		this.listaEmpleados = new ArrayList<Empleado>();
-		Empleado empleado1 = new Empleado("Gabriel", 29, 925000);
-		Empleado empleado2 = new Empleado("Sofia", 24, 965000);
-		Empleado empleado3 = new Empleado("Carlos", 20, 985000);
+		Empleado empleado1 = new Empleado("Gabriel", "123" , 29, 925000);
+		Empleado empleado2 = new Empleado("Sofia", "1234", 24, 965000);
+		Empleado empleado3 = new Empleado("Carlos", "12345", 20, 985000);
 		this.insert(empleado1);
 		this.insert(empleado2);
 		this.insert(empleado3);
@@ -44,7 +44,27 @@ public class EmpleadosRepoSingleton implements EmpleadoRepo {
 			.orElse(null);
 
 	}
+	
+	@Override
+	public Empleado findByUsername(String username, String contraseña) {
+		System.out.println("Ingresó al método: " + username + ' ' + contraseña);
+		return this.listaEmpleados.stream()
+			.filter( (e) -> e.getNombre().equals(username) && e.getContraseña().equals(contraseña))
+			.findAny()
+			.orElse(null);
 
+	}
+
+//	@Override
+//	public Empleado findByPassword(String pass) {
+//		System.out.println("Ingresó al método: " + pass);
+//		return this.listaEmpleados.stream()
+//			.filter( (e) -> e.getNombre().equals(pass) )
+//			.findAny()
+//			.orElse(null);
+//
+//	}
+	
 	@Override
 	public void insert(Empleado empleado) {
 		

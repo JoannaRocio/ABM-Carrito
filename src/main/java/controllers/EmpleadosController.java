@@ -196,7 +196,7 @@ public class EmpleadosController extends HttpServlet {
 		String sEdad = request.getParameter("edad");
 		int edad = Integer.parseInt(sEdad);
 		
-		Empleado emple = new Empleado(nombre, edad, sueldo);
+		Empleado emple = new Empleado(nombre, "", edad, sueldo);
 		
 		empleadosRepo.insert(emple);
 		
