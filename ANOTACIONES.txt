@@ -1,7 +1,7 @@
 El proyecto se comienza desde AuthController.
 
 PANTALLA DE LOGUIN
-RUTA: views/auth/login.jsp
+RUTA: views/auth/login.jsp	
 1- Hay que modificar views/auth/login.jsp
 Agregarle INPUT Usuario/Nombre y INPUT Contraseña
 2 - Agregar botón "Ingresar como Empleado"
@@ -61,3 +61,6 @@ EMPLEADOS (OBJETO)
 CLIENTE (OBJETO)
 
 FACTURA (OBJETO)
+
+
+git clone https://github.com/JoannaRocio/ABM-Carrito.git
