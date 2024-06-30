@@ -8,25 +8,25 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/styles.css">
-<title>Insert title here</title>
+<title>Poketienda</title>
 </head>
-<body>
-	<div class="container">
-		<form action="auth" method="post">
-			<p>
-				<label>Usuario:</label>
-				<input type="text" name="username" placeholder="Ingrese su usuario"/>
+<body class="body-login" style="background-image: url('${pageContext.request.contextPath}/../public/images/fondo-eevee.jpg');">
+	<div class="container-login">
+		<form class="form-login" action="auth" method="post">
+			<p class="">
+				<label class="label-login">Usuario:</label>
+				<input class="input-login" type="text" name="username" placeholder="Ingrese su usuario"/>
 		<%-- 		<select name="empleado_id">
 						<c:forEach var="empleado" items="${empleados}">
 							<option value="${empleado.id}">${empleado.nombre}</option>
 						</c:forEach>
 				</select> --%>
 			</p>
-			<p>
-				<label>Contraseña: </label>
-				<input type="password" name="pass" placeholder="Ingrese su contraseña"/>
+			<p class="">
+				<label class="label-login">Contraseña: </label>
+				<input class="input-login" type="password" name="pass" placeholder="Ingrese su contraseña"/>
 			</p>
-			 <input type="submit" value="Ingresar"/>
+			 <input class="button-login" type="submit" value="Ingresar"/>
 		</form>
 	</div>
 </body>
