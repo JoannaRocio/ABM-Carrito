@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Empleado {
 	private int id;
 	private String nombre;
-	private String contraseña;
+	private String contrasenia;
 	private int edad;
 	private double sueldo;
 	private LocalDate fechaVueltaVacaciones;
@@ -16,10 +16,10 @@ public class Empleado {
 	} 
 
 
-	public Empleado(String nombre, String contraseña, int edad, double sueldo) {
+	public Empleado(String nombre, String contrasenia, int edad, double sueldo) {
 		super();
 		this.nombre = nombre;
-		this.contraseña = contraseña;
+		this.contrasenia = contrasenia;
 		this.edad = edad;
 		this.sueldo = sueldo;
 	}
@@ -44,13 +44,13 @@ public class Empleado {
 		this.nombre = nombre;
 	}
 	
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 
