@@ -13,8 +13,6 @@ public interface EmpleadoRepo {
 	
 	public Empleado findByUsername(String username, String pass) throws IOException;
 	
-	//public Empleado findByPassword(String pass) throws IOException;
-	
 	public void insert(Empleado empleado) throws IOException;
 	
 	public void update(Empleado empleado) throws IOException;

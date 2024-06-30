@@ -42,8 +42,6 @@ public class AuthController extends HttpServlet {
 		String pass = request.getParameter("pass");
 
 		Empleado _username = empleadosRepo.findByUsername(username, pass);
-		
-		//Empleado _pass = empleadosRepo.findByPassword(pass);
 
 		if(_username != null) {
 

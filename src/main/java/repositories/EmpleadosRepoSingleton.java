@@ -47,23 +47,12 @@ public class EmpleadosRepoSingleton implements EmpleadoRepo {
 	
 	@Override
 	public Empleado findByUsername(String username, String contrasenia) {
-		System.out.println("Ingres� al m�todo: " + username + ' ' + contrasenia);
 		return this.listaEmpleados.stream()
 			.filter( (e) -> e.getNombre().equals(username) && e.getContrasenia().equals(contrasenia))
 			.findAny()
 			.orElse(null);
 
 	}
-
-//	@Override
-//	public Empleado findByPassword(String pass) {
-//		System.out.println("Ingres� al m�todo: " + pass);
-//		return this.listaEmpleados.stream()
-//			.filter( (e) -> e.getNombre().equals(pass) )
-//			.findAny()
-//			.orElse(null);
-//
-//	}
 	
 	@Override
 	public void insert(Empleado empleado) {
